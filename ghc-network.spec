@@ -15,16 +15,30 @@ Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{v
 # Source0-md5:	ed1ec6ecd7eb71bd7239a872f3aebeb5
 URL:		http://hackage.haskell.org/package/network
 BuildRequires:	ghc >= 6.12.3
-%{?with_prof:BuildRequires:	ghc-prof >= 6.12.3}
+BuildRequires:	ghc-base >= 3
+BuildRequires:	ghc-base < 5
+BuildRequires:	ghc-bytestring
 BuildRequires:	ghc-parsec >= 3.0
-%{?with_prof:BuildRequires:	ghc-parsec-prof >= 3.0}
+%if %{with prof}
+BuildRequires:	ghc-prof >= 6.12.3
+BuildRequires:	ghc-base-prof >= 3
+BuildRequires:	ghc-base-prof < 5
+BuildRequires:	ghc-bytestring-prof
+BuildRequires:	ghc-parsec-prof >= 3.0
+%endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 %requires_eq	ghc
+Requires:	ghc-base >= 3
+Requires:	ghc-base < 5
+Requires:	ghc-bytestring
 Requires:	ghc-parsec >= 3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # debuginfo is not useful for ghc
 %define		_enable_debug_packages	0
+
+# don't compress haddock files
+%define		_noautocompressdoc	*.haddock
 
 %description
 Low-level networking interface.
@@ -37,6 +51,9 @@ Summary:	Profiling %{pkgname} library for GHC
 Summary(pl.UTF-8):	Biblioteka profilująca %{pkgname} dla GHC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	ghc-base-prof >= 3
+Requires:	ghc-base-prof < 5
+Requires:	ghc-bytestring-prof
 Requires:	ghc-parsec-prof >= 3.0
 
 %description prof
