@@ -6,30 +6,27 @@
 Summary:	Low-level networking interface
 Summary(pl.UTF-8):	Niskopoziomowy interfejs do operacji sieciowych
 Name:		ghc-%{pkgname}
-Version:	2.4.2.1
+Version:	3.1.1.1
 Release:	1
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/network
 Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	ed1ec6ecd7eb71bd7239a872f3aebeb5
+# Source0-md5:	3c34a1ec30fa08c69de8a4259a0c3593
 URL:		http://hackage.haskell.org/package/network
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	ghc-base >= 3
-BuildRequires:	ghc-base < 5
 BuildRequires:	ghc-bytestring
 BuildRequires:	ghc-parsec >= 3.0
 %if %{with prof}
 BuildRequires:	ghc-prof >= 6.12.3
 BuildRequires:	ghc-base-prof >= 3
-BuildRequires:	ghc-base-prof < 5
 BuildRequires:	ghc-bytestring-prof
 BuildRequires:	ghc-parsec-prof >= 3.0
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 %requires_eq	ghc
 Requires:	ghc-base >= 3
-Requires:	ghc-base < 5
 Requires:	ghc-bytestring
 Requires:	ghc-parsec >= 3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -52,7 +49,6 @@ Summary(pl.UTF-8):	Biblioteka profilująca %{pkgname} dla GHC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	ghc-base-prof >= 3
-Requires:	ghc-base-prof < 5
 Requires:	ghc-bytestring-prof
 Requires:	ghc-parsec-prof >= 3.0
 
@@ -114,28 +110,34 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE README
+%doc CHANGELOG.md LICENSE README.md
 %{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/HSnetwork-%{version}.o
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSnetwork-%{version}.a
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSnetwork-%{version}-*.so
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSnetwork-%{version}-*.a
+%exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSnetwork-%{version}-*_p.a
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket/ByteString
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket/ByteString/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket/ByteString/*.dyn_hi
+%dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket/ByteString/Lazy
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket/ByteString/Lazy/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket/ByteString/Lazy/*.dyn_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/include
 
 %if %{with prof}
 %files prof
 %defattr(644,root,root,755)
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSnetwork-%{version}_p.a
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network.p_hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSnetwork-%{version}-*_p.a
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket/ByteString/*.p_hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network/Socket/ByteString/Lazy/*.p_hi
 %endif
 
 %files doc
