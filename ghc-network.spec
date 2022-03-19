@@ -7,7 +7,7 @@ Summary:	Low-level networking interface
 Summary(pl.UTF-8):	Niskopoziomowy interfejs do operacji sieciowych
 Name:		ghc-%{pkgname}
 Version:	3.1.1.1
-Release:	1
+Release:	2
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/network
