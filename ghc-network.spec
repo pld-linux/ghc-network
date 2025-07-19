@@ -15,20 +15,21 @@ Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{v
 # Source0-md5:	3c34a1ec30fa08c69de8a4259a0c3593
 URL:		http://hackage.haskell.org/package/network
 BuildRequires:	ghc >= 6.12.3
-BuildRequires:	ghc-base >= 3
-BuildRequires:	ghc-bytestring
-BuildRequires:	ghc-parsec >= 3.0
+BuildRequires:	ghc-base >= 4.7
+BuildRequires:	ghc-base < 5
+BuildRequires:	ghc-bytestring >= 0.10
+BuildRequires:	ghc-bytestring < 0.11
+BuildRequires:	ghc-deepseq
 %if %{with prof}
 BuildRequires:	ghc-prof >= 6.12.3
-BuildRequires:	ghc-base-prof >= 3
-BuildRequires:	ghc-bytestring-prof
-BuildRequires:	ghc-parsec-prof >= 3.0
+BuildRequires:	ghc-base-prof >= 4.7
+BuildRequires:	ghc-bytestring-prof >= 0.10
+BuildRequires:	ghc-deepseq-prof
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 %requires_eq	ghc
-Requires:	ghc-base >= 3
-Requires:	ghc-bytestring
-Requires:	ghc-parsec >= 3.0
+Requires:	ghc-base >= 4.7
+Requires:	ghc-bytestring >= 0.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # debuginfo is not useful for ghc
@@ -48,9 +49,9 @@ Summary:	Profiling %{pkgname} library for GHC
 Summary(pl.UTF-8):	Biblioteka profilująca %{pkgname} dla GHC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ghc-base-prof >= 3
-Requires:	ghc-bytestring-prof
-Requires:	ghc-parsec-prof >= 3.0
+Requires:	ghc-base-prof >= 4.7
+Requires:	ghc-bytestring-prof >= 0.10
+Requires:	ghc-deepseq-prof
 
 %description prof
 Profiling %{pkgname} library for GHC. Should be installed when
@@ -113,7 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc CHANGELOG.md LICENSE README.md
 %{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSnetwork-%{version}-*.so
+%attr(755,root,root) %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSnetwork-%{version}-*.so
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSnetwork-%{version}-*.a
 %exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSnetwork-%{version}-*_p.a
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Network
