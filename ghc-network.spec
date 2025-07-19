@@ -14,7 +14,7 @@ Group:		Development/Languages
 Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{version}.tar.gz
 # Source0-md5:	3c34a1ec30fa08c69de8a4259a0c3593
 URL:		http://hackage.haskell.org/package/network
-BuildRequires:	ghc >= 6.12.3
+BuildRequires:	ghc >= 7.8.1
 BuildRequires:	ghc-base >= 4.7
 BuildRequires:	ghc-base < 5
 BuildRequires:	ghc-bytestring >= 0.10
